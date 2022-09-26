@@ -1,0 +1,19 @@
+{
+  "name": "algorand-dapp",
+  "version": "0.0.1",
+  "description": "An end-to-end Web3 dApp: certificate generation, distribution, and value transfer with Algorand NFTs and smart contracts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "rrun"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fisseha-Estifanos/algorand.git"
+  },
+  "author": "Fisseha Estifanos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Fisseha-Estifanos/algorand/issues"
+  },
+  "homepage": "https://github.com/Fisseha-Estifanos/algorand#readme"
+}
