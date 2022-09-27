@@ -28,5 +28,5 @@ get_balance(to_address)
 # replace private_key and sender_address with your private key and sender
 # address.
 # Send from wallet_1 ---> wallet_3 in this case
-commit_transaction(key_1, test_address, to_address)
+# commit_transaction(test_key, test_address, to_address)
 print('--- over and out ---')

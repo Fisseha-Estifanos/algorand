@@ -3,7 +3,7 @@ import base64
 from algosdk import account, mnemonic, constants
 from algosdk.v2client import algod
 from algosdk.future import transaction
-from defaults import algorand_ip_address, algorand_token
+from defaults import algorand_local_ip_address, algorand_token, algorand_test_ip_address
 
 
 def generate_algorand_key_pair():
@@ -52,7 +52,7 @@ def commit_transaction(private_key, sender_address, receiver_address):
         The receivers address which receives the transaction
     """
     # connect with a client given the token and address of the network
-    algod_client = algod.AlgodClient(algorand_token, algorand_ip_address)
+    algod_client = algod.AlgodClient(algorand_token, algorand_test_ip_address)
 
     # print basic sender info
     print("\nSender address: {}".format(sender_address))
@@ -120,7 +120,7 @@ def get_balance(account_address: str) -> int:
         The accounts balance
     """
     # create a client to interact with
-    client = algod.AlgodClient(algorand_token, algorand_ip_address)
+    client = algod.AlgodClient(algorand_token, algorand_test_ip_address)
     account_info = client.account_info(account_address)
     print(json.dumps(account_info, indent=4))
 
