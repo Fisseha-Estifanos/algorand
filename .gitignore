@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# data base related ignores
+databse.db
+algorand_dApp/databse.db
