@@ -1,3 +1,4 @@
+import ipaddress
 import os
 import json
 import base64
@@ -5,6 +6,7 @@ from algosdk import account, mnemonic, constants
 from algosdk.v2client import algod
 from algosdk.future import transaction
 from dotenv import load_dotenv
+from defaults import algorand_ip_address, algorand_token
 load_dotenv()
 
 
@@ -39,10 +41,8 @@ def get_mnemonic(private_key: str) -> str:
     return mnemonic.from_private_key(private_key)
 
 
-def first_transaction_example(private_key, sender_address, receiver_address):
-    algod_address = "http://localhost:4001"
-    algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    algod_client = algod.AlgodClient(algod_token, algod_address)
+def commit_transaction(private_key, sender_address, receiver_address):
+    algod_client = algod.AlgodClient(algorand_token, algorand_ip_address)
 
     print("\nSender address: {}".format(sender_address))
     account_info = algod_client.account_info(sender_address)
@@ -91,3 +91,27 @@ def first_transaction_example(private_key, sender_address, receiver_address):
     account_info = algod_client.account_info(sender_address)
     print("Final Account balance: {} microAlgos".format(
         account_info.get('amount')) + "\n")
+
+
+def get_balance(account_address: str) -> int:
+    """
+    A method that tells the accounts balance given an account address
+
+    Parameters
+    =--------=
+    account_address: string
+        The account address
+
+    Returns
+    =-----=
+    account_balance : integer
+        The accounts balance
+    """
+    # create a client to interact with
+    client = algod.AlgodClient(algorand_token, algorand_ip_address)
+    account_info = client.account_info(account_address)
+    print(json.dumps(account_info, indent=4))
+
+    account_balance = account_info.get('amount')
+    print('Account balance: {} microAlgos'.format(account_balance))
+    return account_balance
