@@ -1,12 +1,7 @@
 import os
-import json
-import base64
-from algosdk import account, mnemonic, constants
-from algosdk.v2client import algod
-from algosdk.future import transaction
 from dotenv import load_dotenv
-from transaction_helpers import get_mnemonic, get_balance
-from transaction_helpers import commit_transaction, generate_algorand_key_pair
+from transaction_helpers import commit_transaction, get_mnemonic
+# from transaction_helpers import get_balance, generate_algorand_key_pair
 load_dotenv()
 
 # DEV NET ADDRESSES
@@ -23,7 +18,7 @@ test_key = os.getenv('test_private_key')
 # Write down the address, private key, and the passphrase for later usage
 # generate_algorand_key_pair()
 
-# get_mnemonic(test_key)
+get_mnemonic(test_key)
 
 # replace private_key and sender_address with your private key and sender
 # address.
