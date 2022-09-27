@@ -33,17 +33,32 @@ def get_mnemonic(private_key: str) -> str:
 
     Returns
     =-----=
-    string
-        The mnemonic
+    the_mnemonic: string
+        The generated mnemonic
     """
     print('Private key: *******')
     print(f"Mnemonic key: {mnemonic.from_private_key(private_key)}")
-    return mnemonic.from_private_key(private_key)
+    the_mnemonic = mnemonic.from_private_key(private_key)
+    return the_mnemonic
 
 
 def commit_transaction(private_key, sender_address, receiver_address):
+    """
+    A method to make a transaction between two accounts
+
+    Parameters
+    =--------=
+    private_key: string
+        The senders private key to sign the transaction
+    sender_address: string
+        The senders address from which to make the transaction
+    receiver_address: string
+        The receivers address which receives the transaction
+    """
+    # connect with a client given the token and address of the network
     algod_client = algod.AlgodClient(algorand_token, algorand_ip_address)
 
+    # print basic sender info
     print("\nSender address: {}".format(sender_address))
     account_info = algod_client.account_info(sender_address)
     print("Account balance: {} microAlgos".format(account_info.get('amount')))
@@ -56,6 +71,7 @@ def commit_transaction(private_key, sender_address, receiver_address):
     amount = 100000
     note = "Initial transaction example".encode()
 
+    # print basic receiver info
     print("\nReceiver address: {}".format(receiver_address))
     account_info = algod_client.account_info(receiver_address)
     print("Account balance: {} microAlgos".format(account_info.get('amount')))
