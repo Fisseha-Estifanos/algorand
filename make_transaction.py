@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from transaction_helpers import commit_transaction, get_mnemonic
-# from transaction_helpers import get_balance, generate_algorand_key_pair
+from transaction_helpers import get_balance, generate_algorand_key_pair
 load_dotenv()
 
 # DEV NET ADDRESSES
@@ -20,14 +20,13 @@ test_key = os.getenv('test_private_key')
 
 get_mnemonic(test_key)
 
+# check account balance
+get_balance(test_address)
+get_balance(to_address)
+# get_balance(wallet_3)
+
 # replace private_key and sender_address with your private key and sender
 # address.
 # Send from wallet_1 ---> wallet_3 in this case
 commit_transaction(key_1, test_address, to_address)
-
-# check account balance
-# get_balance(test_address)
-# get_balance(wallet_1)
-# get_balance(wallet_3)
-
 print('--- over and out ---')
