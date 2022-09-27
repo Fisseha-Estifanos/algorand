@@ -1,13 +1,9 @@
-import ipaddress
-import os
 import json
 import base64
 from algosdk import account, mnemonic, constants
 from algosdk.v2client import algod
 from algosdk.future import transaction
-from dotenv import load_dotenv
 from defaults import algorand_ip_address, algorand_token
-load_dotenv()
 
 
 def generate_algorand_key_pair():
@@ -66,8 +62,8 @@ def commit_transaction(private_key, sender_address, receiver_address):
     # build transaction
     params = algod_client.suggested_params()
     # comment out the next two (2) lines to use suggested fees
-    # params.flat_fee = constants.MIN_TXN_FEE
-    # params.fee = 1000
+    params.flat_fee = constants.MIN_TXN_FEE
+    params.fee = 1000
     amount = 100000
     note = "Initial transaction example".encode()
 
@@ -83,12 +79,12 @@ def commit_transaction(private_key, sender_address, receiver_address):
     signed_txn = unsigned_txn.sign(private_key)
 
     # submit transaction
-    txid = algod_client.send_transaction(signed_txn)
-    print("Signed transaction with txID: {}".format(txid))
+    tx_id = algod_client.send_transaction(signed_txn)
+    print("Signed transaction with tx_id: {}".format(tx_id))
 
     # wait for confirmation
     try:
-        confirmed_txn = transaction.wait_for_confirmation(algod_client, txid,
+        confirmed_txn = transaction.wait_for_confirmation(algod_client, tx_id,
                                                           4)
     except Exception as err:
         print("A damn error occurred: {}".format(err))
