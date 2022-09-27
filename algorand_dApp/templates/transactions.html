@@ -2,4 +2,36 @@
 
 {% block content %}
     <h1>{% block title %} Make your transactions on the algorand blockchain network {% endblock %}</h1>
+    <br>
+    <div id="network-selection-form">
+        <form action="/transactions/display_records">
+            <label for="network">Choose network</label>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="network" id="network">
+                <option value="local">Local-net (dev)</option>
+                <option value="main">Main-net</option>
+                <option value="local">Test-net</option>
+            </select>
+            <h3>User account records (only for local networks)</h3>
+            <input class="btn btn-dark" type="submit" value="get account records">
+        </form>
+
+        <div>
+            <table></table>
+            <span class="badge badge-primary"><h6>Account balance: {{ balance }}</h6></span>
+        </div>
+    </div>
+    <br>
+
+    <div id="get-account-balance">
+        <form class="mb-3" action="/transactions/display_balance">
+            <h3>User account balances</h3>
+            <label for="account-address" class="form-label">Input account address</label>
+            <input type="text" class="form-control" id="account-address" placeholder="WF7P5H6IJM34MWAQYDNNKADTPHPB3AUZAEMEZHWCI6OT7C46XGRQCWJJGU">
+
+            <label for="account-balance" class="form-label">Total account balance</label>
+            <input type="text" class="form-control" id="account-balance" placeholder="0000000" value="{{balance}}">
+        </div>
+        <button class="btn btn-dark">get account balance</button>
+    </div>
+
 {% endblock %}
