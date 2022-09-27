@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # data base related ignores
-databse.db
-algorand_dApp/databse.db
+database.db
+algorand_dApp/database.db
