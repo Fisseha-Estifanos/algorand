@@ -23,15 +23,23 @@
     <br>
 
     <div id="get-account-balance">
-        <form class="mb-3" action="/transactions/display_balance">
+        <form class="mb-3" method="GET" action="{{ url_for('display_balance') }}">
             <h3>User account balances</h3>
-            <label for="account-address" class="form-label">Input account address</label>
-            <input type="text" class="form-control" id="account-address" placeholder="WF7P5H6IJM34MWAQYDNNKADTPHPB3AUZAEMEZHWCI6OT7C46XGRQCWJJGU">
 
-            <label for="account-balance" class="form-label">Total account balance</label>
-            <input type="text" class="form-control" id="account-balance" placeholder="0000000" value="{{balance}}">
-        </div>
-        <button class="btn btn-dark">get account balance</button>
+            <div class="form-group">
+                <label for="address" class="form-label">Input account address</label>
+                <input type="text" class="form-control" name="address" placeholder="WF7P5H6IJM34MWAQYDNNKADTPHPB3AUZAEMEZHWCI6OT7C46XGRQCWJJGU"></input>
+            </div>
+
+            <div class="form-group">
+                <label for="account-balance" class="form-label">Total account balance in mini-algos</label>
+                <input type="text" class="form-control" placeholder="" value="{{balance}}" >
+            </div>
+            <br>
+            <div class="form-group">
+                <input class="btn btn-dark" type="submit" value="get account balance">
+            </div>
+        </form>
     </div>
 
 {% endblock %}

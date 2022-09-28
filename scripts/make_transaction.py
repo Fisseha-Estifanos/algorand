@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
-from scripts.transaction_helpers import commit_transaction, get_mnemonic
-from scripts.transaction_helpers import get_balance, generate_algorand_key_pair
+from transaction_helpers import commit_transaction, get_mnemonic
+from transaction_helpers import get_balance, generate_algorand_key_pair
 load_dotenv()
 
 # DEV NET ADDRESSES

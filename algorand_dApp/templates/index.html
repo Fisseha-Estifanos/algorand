@@ -1,15 +1,5 @@
-{% extends 'base.html' %}
-
 {% block content %}
-    <h1>{% block title %} Home {% endblock %}</h1>
-    {% for post in posts %}
-        <a href="#">
-            <h2>{{ post['title'] }}</h2>
-        </a>
-        <span class="badge badge-primary"><h6>Time: {{ post['created'] }}</h6></span>
-        <br>
-        <br>
-        <span class="badge badge-primary"><h6>Content: {{ post['content'] }}</h6></span>
-        <hr>
-    {% endfor %}
+    <h2>{% block title %} {{ post['title'] }} {% endblock %}</h2>
+    <span class="badge badge-primary">{{ post['created'] }}</span>
+    <p>{{ post['content'] }}</p>
 {% endblock %}
