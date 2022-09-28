@@ -9,7 +9,7 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 
 - [Overview](#overview)
 - [Objective](#objective)
-- [Requirement](#major requirement)
+- [Requirements](#requirements)
 - [Install](#install)
 - [How to use the dApp](#examples)
 - [The decentralized application](#dApp)
@@ -27,7 +27,7 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 > In this project the main objective is to build an end-to-end Web3 decentralized application on the Algorand Blockchain that will help its client generate and distribute Non-Fungible Tokens (NFTs) as certificates that will represent the successful completion of a task or project to its customers, and allow its customers that are holding these NFTs to interact with a smart contract to perform pre-defined actions.  
 
 
-## Major requirements
+## Requirements
 > Python 3.5 or above
 > 
 > Pip
