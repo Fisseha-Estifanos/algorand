@@ -12,6 +12,7 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 - [Requirement](#requirement)
 - [Install](#install)
 - [How to use the dApp](#examples)
+- [The decentralized application](#dApp)
 - [Notebooks](#notebooks)
 - [Scripts](#scripts)
 - [Test](#test)
@@ -19,13 +20,11 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 
 
 ## Overview
-> In the current state of our world, data plays a very huge role in almost everything we do. Data is everywhere, large volumes of data, forming many different types, are generated from many different sources and from a wide array of locations, very rapidly. Not making sense of this valuable resource (if not the most valuable resource) would not only be foolish but also very expensive.
+> Web3 is the third generation of the web, or the commonly known and referred to communication network that we all love and call the internet. But Web3 is much more than the commonly known communication network and its uses. Web3 technology is inherently about the user controlled internet. It is being achieved by a growing stack of decentralized technologies, such as blockchains, smart contracts, oracles, crypto wallets, storage networks, and more.   
 
 
 ## Objective
-> The main objective of this startup is to help the organization obtain critical intelligence based on public and private data they collect and organize. 
->
-> This is going to be achieved by deploying an end to end ELT data pipeline that will extract the required data from several sources of data generation tools listed above, then loading it into a data warehouse in order to later transform the obtained data that can serve the needs of several people in the organization's staff like data scientists, machine learning engineers, business and data analysts as well as several reporting staff members
+> In this project the main objective is to build an end-to-end Web3 decentralized application on the Algorand Blockchain that will help its client generate and distribute Non-Fungible Tokens (NFTs) as certificates that will represent the successful completion of a task or project to its customers, and allow its customers that are holding these NFTs to interact with a smart contract to perform pre-defined actions.  
 
 
 ## Major requirements
@@ -33,20 +32,27 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 > 
 > Pip
 > 
-> Airflow
+> py-algorand-skd
 > 
-> DBT 
+> Flask 
 > 
-> PostgreSQL
-> 
-> Redash
+> React
 
 
 ## Install
 
+### Installing the Algorand Sandbox environment (Optional - for development use only)
 ```
-git clone https://github.com/Fisseha-Estifanos/ELT.git
-cd ELT
+git clone https://github.com/algorand/sandbox.git
+cd sandbox
+./sandbox up
+```
+
+
+### Installing the decentralized application
+```
+git clone https://github.com/Fisseha-Estifanos/algorand_dApp.git
+cd algorand_dApp
 pip install -r requirements.txt
 ```
 
@@ -57,12 +63,16 @@ pip install -r requirements.txt
 >
 
 
+## The decentralized application
+> The decentralized application could be found here in the algorand_dApp folder.
+
+
 ## Notebooks
-> The EDA notebook demonstration can be found here in the form of an .ipynb file, in the notebooks folder.
+> All the notebook used for demonstration can be found here in the form of an .ipynb file, in the notebooks folder.
 
 
 ## Scripts
-> All the modules for the EDA notebooks, analyses, helpers and any other scripts will be found here.
+> All the scripts and modules for the creation of NFT certificates, transaction handling, smart contracts and any other helper scripts and modules along with default parameters and values used will be found here, in the scripts folder.
 
 
 ## Tests
