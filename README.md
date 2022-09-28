@@ -1,5 +1,5 @@
 # A decentralized application using the Algorand blockchain network
-An end-to-end Web3 dApp: certificate generation, distribution, and value and transaction transfer with Algorand NFTs and smart contracts
+An end-to-end Web3 dApp: certificate generation, distribution, and value and transaction transfer with Algorand NFTs and smart contracts.
 
 
 ## The Algorand blockchain network 
@@ -9,7 +9,7 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 
 - [Overview](#overview)
 - [Objective](#objective)
-- [Requirement](#requirement)
+- [Requirement](#major requirement)
 - [Install](#install)
 - [How to use the dApp](#examples)
 - [The decentralized application](#dApp)
@@ -47,6 +47,7 @@ git clone https://github.com/algorand/sandbox.git
 cd sandbox
 ./sandbox up
 ```
+- Detailed guidelines and instructions to develop with the Algorand sandbox could be found [here](https://github.com/algorand/sandbox)
 
 
 ### Installing the decentralized application
