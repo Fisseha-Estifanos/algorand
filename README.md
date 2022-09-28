@@ -3,7 +3,7 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 
 
 ## The Algorand blockchain network 
-![](images/image.svg)
+![](images/image.png)
 
 **Table of contents**
 
