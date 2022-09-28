@@ -3,7 +3,8 @@ import base64
 from algosdk import account, mnemonic, constants
 from algosdk.v2client import algod
 from algosdk.future import transaction
-from scripts.defaults import algorand_local_ip_address, algorand_token, algorand_test_ip_address
+from scripts.defaults import algorand_local_ip_address, algorand_token
+from scripts.defaults import algorand_test_ip_address
 
 
 def generate_algorand_key_pair():
@@ -134,3 +135,6 @@ def get_records():
     A method to get all account related records
     """
     return 'one'
+
+
+print('--- transaction helpers over and out ---')
