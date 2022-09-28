@@ -12,7 +12,7 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 - [Requirements](#requirements)
 - [Install](#install)
 - [How to use the dApp](#examples)
-- [The decentralized application](#dApp)
+- [The decentralized application](#DApp)
 - [Notebooks](#notebooks)
 - [Scripts](#scripts)
 - [Test](#test)
@@ -64,7 +64,7 @@ pip install -r requirements.txt
 >
 
 
-## The decentralized application
+## DApp
 > The decentralized application could be found here in the algorand_dApp folder.
 
 
