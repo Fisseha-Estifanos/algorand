@@ -1,15 +1,15 @@
 # import jsonify
-from flask import Flask, request, render_template, url_for, flash, redirect
-from werkzeug.exceptions import abort
 import os
 import sys
-import sqlite3
-from dotenv import load_dotenv
 sys.path.append('.')
 sys.path.append('..')
 sys.path.insert(1, '/scripts/')
-from scripts.transaction_helpers import *
 import scripts.defaults as defs
+from scripts.transaction_helpers import *
+from flask import Flask, request, render_template, url_for, flash, redirect
+from werkzeug.exceptions import abort
+import sqlite3
+from dotenv import load_dotenv
 load_dotenv()
 
 
@@ -131,7 +131,7 @@ def commit_transaction():
 
         print(f'sender address: {sender_address}\nreceiver address: '
               f'{receiver_address}\nalgo amount: {algo_amount}')
-        pk = os.getenv('test_private_key')
+        pk = os.getenv('base_test_private_key')
         sent = make_transaction(pk, sender_address, receiver_address,
                                 algo_amount)
         if sent:
