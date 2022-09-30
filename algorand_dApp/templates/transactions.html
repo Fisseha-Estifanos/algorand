@@ -1,43 +1,85 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <br>
     <h1>{% block title %} Make your transactions on the algorand blockchain network {% endblock %}</h1>
     <br>
-    <div id="network-selection-form">
-        <form action="/transactions/display_records">
+    <div id="network-selection-form" class="p-3 mb-2 bg-secondary text-dark rounded">
+        <form action="{{ url_for("display_records") }}">
+           <div class="row">
             <label for="network">Choose network</label>
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="network" id="network">
-                <option value="local">Local-net (dev)</option>
-                <option value="main">Main-net</option>
-                <option value="local">Test-net</option>
-            </select>
-            <h3>User account records (only for local networks)</h3>
-            <input class="btn btn-dark" type="submit" value="get account records">
+            <div class="col-md">
+                    <select class="form-select form-select-sm bg-secondary" aria-label=".form-select-sm example" name="network" id="network">
+                    <option value="local">Local-net (dev)</option>
+                    <option value="main">Main-net</option>
+                    <option value="local">Test-net</option>
+                </select>
+            </div>
+            <div class="col-md">
+                <button type="button" class="btn btn-dark btn-sm" type="submit">get records</button>
+            </div>
+           </div>
         </form>
-
+        <br>
+        <h3>User's records</h3>
         <div>
-            <table></table>
-            <span class="badge badge-primary"><h6>Account balance: {{ balance }}</h6></span>
+            <!--    TABLE GOES HERE     -->
         </div>
     </div>
     <br>
 
-    <div id="get-account-balance">
-        <form class="mb-3" method="GET" action="{{ url_for('display_balance') }}">
+    <div id="get-account-balance" class="p-3 mb-2 bg-secondary text-dark rounded">
+        <form class="mb-3" method="POST" action="{{ url_for("display_balance") }}">
             <h3>User account balances</h3>
-
+            <br>
             <div class="form-group">
                 <label for="address" class="form-label">Input account address</label>
-                <input type="text" class="form-control" name="address" placeholder="WF7P5H6IJM34MWAQYDNNKADTPHPB3AUZAEMEZHWCI6OT7C46XGRQCWJJGU"></input>
+                <input type="text" class="form-control" name="accountAddress" id="address" placeholder="input your public account address here . . ."></input>
             </div>
-
-            <div class="form-group">
-                <label for="account-balance" class="form-label">Total account balance in mini-algos</label>
-                <input type="text" class="form-control" placeholder="" value="{{balance}}" >
+            <br>
+            <div class="row">
+                <div class="form-group col-md">
+                    <label for="balance" class="form-label bg-secondary">Balance in mini-algos</label>
+                    <input type="number" class="form-control" id="balance" placeholder="" value="{{balance}}" readonly>
+                </div>
+                <div class="form-group col-md">
+                    <label for="total-balance" class="form-label">Balance in algos</label>
+                    <input type="number" class="form-control" id="total-balance" placeholder="" value="{{balance/1000000}}" readonly>
+                </div>
             </div>
             <br>
             <div class="form-group">
-                <input class="btn btn-dark" type="submit" value="get account balance">
+                <button class="btn btn-dark" type="submit">Get balance</button>
+            </div>
+        </form>
+    </div>
+    <br>
+
+    <div id="transactions" class="p-3 mb-2 bg-secondary text-dark rounded">
+        <h3>Make your transactions</h3>
+        <br>
+        <form class="mb-3" method="POST" action="{{ url_for("commit_transaction") }}">
+            <div class="row">
+                <div class="form-group col-md">
+                    <label for="from-address" class="form-label">Senders public address</label>
+                    <input type="text" class="form-control" name="fromAddress" id="from-address" placeholder="input senders public account address here . . ."></input>
+                </div>
+    
+                <div class="form-group col-md">
+                    <label for="to-address" class="form-label">Receivers public address</label>
+                    <input type="text" class="form-control" name="toAddress" id="to-address" placeholder="input receivers public account address here . . ."></input>
+                </div>
+            </div>
+            <br>
+    
+            <div class="row">
+                <label for="ammount" class="form-label">Enter algo amount (in micro algos)</label>
+                <div class="form-group col-md">
+                    <input type="number" class="form-control" name="algo-amount" id="amount" placeholder="input total micro algos to send here . . ."></input>
+                </div>
+                <div class="form-group col-md">
+                    <button class="btn btn-dark" type="submit">Commit transaction</button>
+                </div>
             </div>
         </form>
     </div>
