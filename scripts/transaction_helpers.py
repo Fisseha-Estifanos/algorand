@@ -39,7 +39,8 @@ def get_mnemonic(private_key: str) -> str:
     return the_mnemonic
 
 
-def commit_transaction(private_key, sender_address, receiver_address):
+def make_transaction(private_key, sender_address, receiver_address,
+                     amount_to_send):
     """
     A method to make a transaction between two accounts
 
@@ -65,7 +66,8 @@ def commit_transaction(private_key, sender_address, receiver_address):
     # comment out the next two (2) lines to use suggested fees
     params.flat_fee = constants.MIN_TXN_FEE
     params.fee = 1000
-    amount = 100000
+    # amount = 100000
+    amount = amount_to_send
     note = "Initial transaction example".encode()
 
     # print basic receiver info
@@ -104,6 +106,7 @@ def commit_transaction(private_key, sender_address, receiver_address):
     account_info = algod_client.account_info(sender_address)
     print("Final Account balance: {} microAlgos".format(
         account_info.get('amount')) + "\n")
+    return True
 
 
 def get_balance(account_address: str) -> int:
@@ -133,6 +136,7 @@ def get_balance(account_address: str) -> int:
 def get_records():
     """
     A method to get all account related records
+    TODO: get the records of the given network in here
     """
     return 'one'
 
