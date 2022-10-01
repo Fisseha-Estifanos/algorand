@@ -59,7 +59,7 @@ pip install -r requirements.txt
 
 ## Examples
 
-### Using the dApp
+> ### Using the dApp
 
 - One can start using the dApp by first cloning the repo and going to the dApp directory as shown above or can direct interact with the hosted version by going [here](https://www.hosted.com)
 
@@ -73,7 +73,7 @@ python algorand_dApp_back_end.py
 - Navigate to the address provided on your local browser
 - Install the AlgoSigner wallet on your browser from [here](https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm)
 
-#### Making transactions
+> #### Making transactions
 
 - First navigate to the transactions tab.
 
