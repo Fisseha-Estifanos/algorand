@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from transaction_helpers import commit_transaction, get_mnemonic
+from transaction_helpers import make_transaction, get_mnemonic
 from transaction_helpers import get_balance, generate_algorand_key_pair
 load_dotenv()
 
@@ -13,16 +13,16 @@ key_3 = os.getenv('private_key_w3')
 # TEST NET ADDRESSES
 test_address = os.getenv('test_address')
 to_address = os.getenv('and_address')
-test_key = os.getenv('test_private_key')
+base_test_key = os.getenv('base_test_private_key')
+second_test_key = os.getenv('second_test_private_key')
 
 # Write down the address, private key, and the passphrase for later usage
 # generate_algorand_key_pair()
 
-get_mnemonic(test_key)
+# get_mnemonic(second_test_key)
 
 # check account balance
-get_balance(test_address)
-get_balance(to_address)
+# get_balance(test_address)
 # get_balance(wallet_3)
 
 # replace private_key and sender_address with your private key and sender

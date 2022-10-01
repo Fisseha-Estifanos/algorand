@@ -1,17 +1,16 @@
 # import jsonify
-from flask import Flask, request, render_template, url_for, flash, redirect
+from dotenv import load_dotenv
+import sqlite3
 from werkzeug.exceptions import abort
+from flask import Flask, request, render_template, url_for, flash, redirect
 import os
 import sys
-import sqlite3
-from dotenv import load_dotenv
 sys.path.append('.')
 sys.path.append('..')
 sys.path.insert(1, '/scripts/')
 from scripts.transaction_helpers import *
 import scripts.defaults as defs
 load_dotenv()
-
 
 wallet_1 = os.getenv('my_address_w1')
 flask_secret_key = os.getenv('flask_secret_key')
@@ -20,6 +19,7 @@ app = Flask(__name__)
 app.secret_key = flask_secret_key
 
 
+# region index related
 def get_db_connection():
     """
     A function to create a sqlite db connection
@@ -55,16 +55,38 @@ def index():
     posts = conn.execute('SELECT * FROM posts').fetchall()
     conn.close()
     return render_template('index.html', posts=posts)
+# endregion
 
 
+# region certificates related endpoints
 @app.route('/certificates')
 def certificates():
     """
     The main certificates page
     """
     return render_template('certificates.html')
+# endregion
 
 
+# region wallet related endpoints
+@app.route('/wallets', methods=['GET'])
+def wallets():
+    """
+    The main wallets page
+    """
+    return render_template('wallets.html')
+
+
+@app.route('/wallets/connect_to_wallets', methods=['GET'])
+def connect_to_wallets():
+    """
+    The wallet connection creator
+    """
+    return render_template('wallets.html')
+# endregion
+
+
+# region Transaction related endpoints
 @app.route('/transactions', methods=['GET'])
 def transactions():
     """
@@ -131,7 +153,7 @@ def commit_transaction():
 
         print(f'sender address: {sender_address}\nreceiver address: '
               f'{receiver_address}\nalgo amount: {algo_amount}')
-        pk = os.getenv('test_private_key')
+        pk = os.getenv('base_test_private_key')
         sent = make_transaction(pk, sender_address, receiver_address,
                                 algo_amount)
         if sent:
@@ -141,6 +163,7 @@ def commit_transaction():
         else:
             flash('Transaction failed, see log for more details')
             return render_template('transactions.html', balance=0)
+# endregion
 
 
 if __name__ == '__main__':
