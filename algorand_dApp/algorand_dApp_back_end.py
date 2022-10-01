@@ -68,6 +68,16 @@ def certificates():
 # endregion
 
 
+# region opt in related endpoints
+@app.route('/optin')
+def optin():
+    """
+    The main opt in page
+    """
+    return render_template('optin.html')
+# endregion
+
+
 # region wallet related endpoints
 @app.route('/wallets', methods=['GET'])
 def wallets():
