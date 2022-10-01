@@ -75,18 +75,24 @@ python algorand_dApp_back_end.py
 
 #### Making transactions
 
-> First navigate to the transactions tab.
->
-> Start by selecting one of the provided Algorand networks as shown below.
-> ![](screenshots/select-network.png)
+- First navigate to the transactions tab.
 
-> After selecting networks, addresses associated with that network will be found.
->
-> You can now easily make transactors by entering user and receiver addresses along with the amount of algos to send and some notes as shown below.
-> ![](screenshots/make-transactions.png)
->
-> You can also easily check you balance as shown below.
-> ![](screenshots/get-balance.png)
+- Start by selecting one of the provided Algorand networks as shown below.
+
+  > ![](screenshots/select-network.png)
+
+- After selecting networks, addresses associated with that network will be found.
+
+- You can now easily make transactors by entering user and receiver addresses along with the amount of algos to send and some notes as shown below.
+
+  > ![](screenshots/make-transactions.png)
+
+- A pop up window will appear as shown below in order to grand access for the transaction. Grant the request and enter your AlgoSigner browser integration password.
+
+![](screenshots/pop-up.png)
+
+- You can also easily check you balance as shown below.
+  > ![](screenshots/get-balance.png)
 
 ## DApp
 
