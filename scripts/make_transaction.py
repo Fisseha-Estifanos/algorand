@@ -1,3 +1,10 @@
+"""
+A script to quickly test some codes written in the main transaction_helpers
+script. Only used for demonstration and quick testing uses while in
+development.
+--- OF NO PRACTICAL USE TO THE END PRODUCT ---
+"""
+
 import os
 from dotenv import load_dotenv
 from transaction_helpers import make_transaction, get_mnemonic
