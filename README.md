@@ -36,8 +36,6 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 > py-algorand-skd
 >
 > Flask
->
-> React
 
 ## Install
 
@@ -78,8 +76,9 @@ python algorand_dApp_back_end.py
 #### Making transactions
 
 > First navigate to the transactions tab.
+>
 > Start by selecting one of the provided Algorand networks as shown below.
-> ![](screenshots/select-networks.png)
+> ![](screenshots/select-network.png)
 
 > After selecting networks, addresses associated with that network will be found.
 >
