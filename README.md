@@ -94,6 +94,21 @@ python algorand_dApp_back_end.py
 - You can also easily check you balance as shown below.
   > ![](screenshots/get-balance.png)
 
+> #### Creating NFT certificates
+
+> First navigate to the NFT certificates tab.
+>
+> You can now create NFT certificates by entering the following parameters listed below.
+
+- Asset name
+- Asset URL
+- Unit name
+- Total units
+- Decimals
+- Note
+
+> Note here that you first need to put your certificates in a distributed file management system, then input the address (url) of that certificate in the asset url input parameter.
+
 ## DApp
 
 > The decentralized application could be found here in the algorand_dApp folder.
