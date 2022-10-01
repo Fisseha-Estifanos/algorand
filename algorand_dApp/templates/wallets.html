@@ -198,7 +198,7 @@
             console.log(typeof(+document.getElementById('amount').value))
             let amount = BigInt(+document.getElementById('amount').value);
             let from = document.getElementById('from').value;
-            let txn = algosdk.makePaymentTxnWithSuggestedParams(from, to, amount, undefined, note, params);
+            let txn = await algosdk.makePaymentTxnWithSuggestedParams(from, to, amount, undefined, note, params);
             console.log('transaction created')
             
             // Use the AlgoSigner encoding library to make the transactions base64

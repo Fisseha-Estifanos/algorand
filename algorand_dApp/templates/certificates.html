@@ -2,24 +2,162 @@
 
 {% block content %}
     <script>
-        // own transaction implementation
-        let tx = {}
-        let signedTxs = {};
-        async function create_the_damn_transaction() {
+        const algodServer = "https://testnet-api.algonode.cloud"
+        const algorand_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        const port = '';
+        let algodClient;
+        let txParamsJS = {}
+        let tnAccounts = [];
+        let signedTxs;
+        let tx = {};
+        let indexerClient = {};
+
+        // populate accounts
+        function accounts() {
+            setup()
+            AlgoSigner.accounts({
+                ledger: 'TestNet'
+            })
+            .then((d) => {
+                // Append accounts to account select
+                let select = document.getElementById('from');
+                select.textContent = '';
+                for (var i = d.length - 1; i >= 0; i--) {
+                let option = document.createElement('option');
+                option.text = d[i].address;
+                option.value = d[i].address;
+                select.appendChild(option);
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                accountsCodeElem.innerHTML = JSON.stringify(e, null, 2);
+            })
+            .finally(() => {
+                //hljs.highlightBlock(accountsCodeElem);
+            });
+        }
+
+        
+        // setting up sdk
+        async function setup() {
+            algodClient = await new algosdk.Algodv2(algorand_token, algodServer, port);
+            //indexerClient = new algosdk.Indexer(token, indexerServer, port);
+            await algodClient.healthCheck().do()
+            .then(d => { 
+                console.log('setup completed')
+            })
+            .catch(e => { 
+                console.error(e); 
+            });
+        }
+
+        async function params() {
+            //let paramsCodeElem = document.getElementById('params-code');
+            await algodClient.getTransactionParams().do()
+            .then((d) => {
+                txParamsJS = d;
+                //paramsCodeElem.innerHTML = JSON.stringify(txParamsJS, null, 2);
+            })
+            .catch((e) => {
+                console.error(e);
+                //paramsCodeElem.innerHTML = JSON.stringify(e, null, 2);
+            })
+            .finally(() => {
+                //hljs.highlightBlock(paramsCodeElem);
+                console.log('params created')
+            });
+        }
+
+        async function sign() {
+            //let signCodeElem = document.getElementById('sign-code');
+
+            const txn = await algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
+                from: document.getElementById('from').value,
+                assetName: document.getElementById('asset-name').value,
+                unitName: document.getElementById('unit-name').value,
+                total: +document.getElementById('total-units').value,
+                decimals: +document.getElementById('decimals').value,
+                note: AlgoSigner.encoding.stringToByteArray(document.getElementById('note').value),
+                suggestedParams: {...txParamsJS}
+            });
+
+            // Use the AlgoSigner encoding library to make the transactions base64
+            const txn_b64 = await AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+
+            await AlgoSigner.signTxn([{txn: txn_b64}])
+            .then((d) => {
+                signedTxs = d;
+                //signCodeElem.innerHTML = JSON.stringify(d, null, 2);
+            })
+            .catch((e) => {
+                console.error(e);
+                //signCodeElem.innerHTML = JSON.stringify(e, null, 2);
+            })
+            .finally(() => {
+                //hljs.highlightBlock(signCodeElem);
+                console.log('txn signed')
+            });
+        }
+
+        async function send() {
+            //let sendCodeElem = document.getElementById('send-code');
+
+            // Sending first transaction only for demo purposes
+            await AlgoSigner.send({
+                ledger: 'TestNet',
+                tx: signedTxs[0].blob
+            })
+            .then((d) => {
+                //sendCodeElem.innerHTML = JSON.stringify(d, null, 2);
+                tx = d;
+            })
+            .catch((e) => {
+                console.error(e);
+                //sendCodeElem.innerHTML = JSON.stringify(e, null, 2);
+            })
+            .finally(() => {
+                //hljs.highlightBlock(sendCodeElem);
+                console.log('txn sent')
+            });
+        }
+
+        async function pending() {
+            //let pendingCodeElem = document.getElementById('pending-code');
+
+            await algodClient.pendingTransactionInformation(tx.txId).do()
+            .then((d) => {
+                //pendingCodeElem.innerHTML = JSON.stringify(d, toJsonReplace, 2);
+            })
+            .catch((e) => {
+                console.error(e);
+                //pendingCodeElem.innerHTML = JSON.stringify(e, null, 2);
+            })
+            .finally(() => {
+                //hljs.highlightBlock(pendingCodeElem);
+                console.log('txn pending completed')
+            });
+    }
+
+        async function create_nft () {
+            setup()
             //params = algodClient.suggestedParams();
             let params = await algodClient.getTransactionParams().do();
-            params.fee = 1000;
-            params.flat_fee = true;
-            const to = document.getElementById('to').value;
+            //params.fee = 1000;
+            //params.flat_fee = true;
+            let from = document.getElementById('from').value;
+            let assetName = document.getElementById('asset-name').value;
+            let assetUrl = document.getElementById('asset-url').value;
+            let unitName = document.getElementById('unit-name').value;
+            let total = +document.getElementById('total-units').value;
+            let decimals = +document.getElementById('decimals').value;
             const enc = new TextEncoder();
             let note = enc.encode(document.getElementById('note').value);
-            console.log(+document.getElementById('amount').value)
-            console.log(typeof(+document.getElementById('amount').value))
-            let amount = BigInt(+document.getElementById('amount').value);
-            let from = document.getElementById('from').value;
-            let txn = algosdk.makePaymentTxnWithSuggestedParams(from, to, amount, undefined, note, params);
+            //console.log(+document.getElementById('amount').value)
+            //console.log(typeof(+document.getElementById('amount').value))
+            let txn = algosdk.makeAssetCreateTxnWithSuggestedParams(from, assetName, unitName, total, decimals, undefined, note, params);
             console.log('transaction created')
-            
+
             // Use the AlgoSigner encoding library to make the transactions base64
             let txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
             await AlgoSigner.signTxn([{txn: txn_b64}])
@@ -30,7 +168,7 @@
                 console.error(e);
             });
             console.log('transaction signed')
-            
+
             // send transaction
             await AlgoSigner.send({
                 ledger: 'TestNet',
@@ -44,35 +182,22 @@
             });
             console.log('transaction sent')
 
-
             // Wait for confirmation
-            let confirmedTxn = await waitForConfirmation(algodClient, tx, 10);
+            let confirmedTxn = await waitForConfirmation(algodClient, tx, 30);
             //Get the completed Transaction
             console.log("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
             let mytxinfo = JSON.stringify(confirmedTxn.txn.txn, undefined, 2);
             console.log("Transaction information: %o", mytxinfo);
             var string = new TextDecoder().decode(confirmedTxn.txn.txn.note);
             console.log("Note field: ", string);
-
-
-            // Wait for confirmation
-            //let pendingCodeElem = document.getElementById('status');
-      
-            //await algodClient.pendingTransactionInformation(tx.txId).do()
-            //.then((d) => {
-                //pendingCodeElem.innerHTML = JSON.stringify(d, toJsonReplace, 2);
-            //})
-            //.catch((e) => {
-              //  console.error(e);
-                //pendingCodeElem.innerHTML = JSON.stringify(e, null, 2);
-            //})
-            //.finally(() => {
-                //hljs.highlightBlock(pendingCodeElem);
-           // });
+            alert('NFT certificate created successfully')
         }
 
-        function create_nft () {
-            alert ('nft created')
+        async function create_nft_proper () {
+            await params()
+            await sign()
+            await send()
+            await pending()
         }
     </script>
 
@@ -110,6 +235,14 @@
         <div class="mb-3 container">
             <h3>Create your NFT certificates</h3>
             <br>
+                <div class="row">
+                    <div class="form-group col-md">
+                        <label for="from" class="form-label">Input NFT creator address</label>
+                        <select type="text" class="form-control col-md" name="from" id="from" placeholder="input NFT creator address here . . ."></select>
+                    </div>
+                </div>
+                <br>
+
                 <div class="row">
                     <div class="form-group col-md">
                         <label for="asset-name" class="form-label">Asset name</label>
@@ -150,7 +283,7 @@
                 <br>
 
                 <div class="form-group col-md">
-                    <button class="btn btn-dark" onclick="create_nft()">Create NFT</button>
+                    <button class="btn btn-dark" onclick="create_nft_proper()">Create NFT</button>
                 </div>
             </div>
         </div>
