@@ -145,6 +145,12 @@
         }
 
         const waitForConfirmation = async function (algodClient, txId, timeout) {
+            console.log(algodClient)
+            console.log(typeof(algodClient))
+            console.log(txId)
+            console.log(typeof(txId))
+            console.log(timeout)
+            console.log(typeof(timeout))
             if (algodClient == null || txId == null || timeout < 0) {
                 throw new Error("Bad arguments");
             }
@@ -158,7 +164,7 @@
             let current_round = startround;
 
             while (current_round < (startround + timeout)) {
-                const pendingInfo = await algodClient.pendingTransactionInformation(txId).do();
+                const pendingInfo = await algodClient.pendingTransactionInformation(txId.txId).do();
                 if (pendingInfo !== undefined) {
                     if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
                         //Got the completed Transaction
@@ -183,8 +189,8 @@
         async function create_the_damn_transaction() {
             //params = algodClient.suggestedParams();
             let params = await algodClient.getTransactionParams().do();
-            params.fee = 1000;
-            params.flat_fee = true;
+            //params.fee = 1000;
+            //params.flat_fee = true;
             const to = document.getElementById('to').value;
             const enc = new TextEncoder();
             let note = enc.encode(document.getElementById('note').value);
@@ -221,14 +227,14 @@
 
 
             // Wait for confirmation
-            let confirmedTxn = await waitForConfirmation(algodClient, tx, 10);
+            let confirmedTxn = await waitForConfirmation(algodClient, tx, 30);
             //Get the completed Transaction
             console.log("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
             let mytxinfo = JSON.stringify(confirmedTxn.txn.txn, undefined, 2);
             console.log("Transaction information: %o", mytxinfo);
             var string = new TextDecoder().decode(confirmedTxn.txn.txn.note);
             console.log("Note field: ", string);
-
+            alert('transaction completed successfully')
 
             // Wait for confirmation
             //let pendingCodeElem = document.getElementById('status');
