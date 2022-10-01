@@ -14,7 +14,6 @@ An end-to-end Web3 dApp: certificate generation, distribution, and value and tra
 - [Install](#install)
 - [How to use the dApp](#examples)
 - [The decentralized application](#DApp)
-- [Notebooks](#notebooks)
 - [Scripts](#scripts)
 - [Test](#test)
 - [Author](#author)
@@ -114,10 +113,6 @@ python algorand_dApp_back_end.py
 ## DApp
 
 > The decentralized application could be found here in the algorand_dApp folder.
-
-## Notebooks
-
-> All the notebook used for demonstration can be found here in the form of an .ipynb file, in the notebooks folder.
 
 ## Scripts
 
