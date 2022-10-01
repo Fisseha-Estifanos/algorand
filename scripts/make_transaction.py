@@ -19,11 +19,10 @@ second_test_key = os.getenv('second_test_private_key')
 # Write down the address, private key, and the passphrase for later usage
 # generate_algorand_key_pair()
 
-get_mnemonic(second_test_key)
+# get_mnemonic(second_test_key)
 
 # check account balance
 # get_balance(test_address)
-# get_balance(to_address)
 # get_balance(wallet_3)
 
 # replace private_key and sender_address with your private key and sender
