@@ -89,7 +89,7 @@ python algorand_dApp_back_end.py
 
 - A pop up window will appear as shown below in order to grand access for the transaction. Grant the request and enter your AlgoSigner browser integration password.
 
-![](screenshots/pop-up.png)
+  > ![](screenshots/pop-up.png)
 
 - You can also easily check you balance as shown below.
   > ![](screenshots/get-balance.png)
