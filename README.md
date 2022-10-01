@@ -109,7 +109,7 @@ python algorand_dApp_back_end.py
 
 * Note here that you first need to put your certificates in a distributed file management system, then input the address (url) of that certificate in the asset url input parameter.
 
-- ![](screenshots/create-nft.png)
+  > - ![](screenshots/create-nft.png)
 
 ## DApp
 
