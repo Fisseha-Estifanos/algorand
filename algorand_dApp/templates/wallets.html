@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <script>
+        // AlgoSign wallet installation checker
+        function check_wallet_installation() {
+            var myText;
+            if (typeof AlgoSigner !== 'undefined') {
+                myText = 'The AlgoSigner wallet is installed.';
+            } else {
+                myText = 'The AlgoSigner wallet is NOT installed.';
+            };
+            alert (myText);
+        };
+
+        // AlgoSing wallet connector
+        function create_connection() {
+            var myText;
+            AlgoSigner.connect()
+            .then((d) => {
+                myText = JSON.stringify(d);
+            })
+            .catch((e) => {
+                console.error(e);
+                myText = 'An error occurred during connection:\n' + JSON.stringify(e);
+            });
+            if (myText==undefined) {
+                alert ('Wallets connected with successfully');
+            } else {
+                alert (myText);
+            }
+        }
+
+        // Load AlgoSign wallets
+        function load_wallets() {
+            AlgoSigner.accounts({
+            ledger: 'TestNet'
+            })
+            .then((d) => {
+            document.getElementById('addresses').innerHTML = JSON.stringify(d);
+            })
+            .catch((e) => {
+            console.error(e);
+            document.getElementById('addresses').innerHTML = JSON.stringify(e);
+            });
+        }
+    </script>
+    <br>
+    <h1>{% block title %} Wallet integration {% endblock %}</h1>
+    <br>
+
+    <div id="wallet-integration" class="p-3 mb-2 bg-secondary text-dark rounded">
+        <div class="mb-3 container">
+            <div class="row">
+                <h3 class="col-md">Connect to your wallet</h3>
+                <div class="col-md">
+                    <button onclick="check_wallet_installation()" class="btn btn-dark btn-sm">check connection</button>
+                    <button onclick="create_connection()" class="btn btn-dark btn-sm">Connect wallets</button>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="addresses" class="form-label">Wallet account addresses</label>
+                <textarea type="text" class="form-control" name="addresses" id="addresses"></textarea>
+            </div>
+            <br>
+            <div class="form-group">
+                <button onclick="load_wallets()" class="btn btn-dark">Load wallets</button>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endblock %}
