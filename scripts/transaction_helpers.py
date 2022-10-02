@@ -4,7 +4,7 @@ from algosdk import account, mnemonic, constants
 from algosdk.v2client import algod
 from algosdk.future import transaction
 from scripts.defaults import algorand_local_ip_address, algorand_token
-from scripts.defaults import algorand_test_ip_address
+from scripts.defaults import algorand_test_ip_address, algorand_main_ip_address
 
 
 def generate_algorand_key_pair():
@@ -125,6 +125,7 @@ def get_balance(account_address: str) -> int:
     """
     # create a client to interact with
     client = algod.AlgodClient(algorand_token, algorand_test_ip_address)
+    # client = algod.AlgodClient(algorand_token, algorand_main_ip_address)
     account_info = client.account_info(account_address)
     print(json.dumps(account_info, indent=4))
 
