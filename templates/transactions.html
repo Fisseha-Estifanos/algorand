@@ -5,7 +5,7 @@
         // populate accounts
         function accounts() {
             AlgoSigner.accounts({
-                ledger: 'TestNet',
+                ledger: 'TestNet'
                 //ledger: 'MainNet'
             })
             .then((d) => {
@@ -18,7 +18,7 @@
                     option.value = d[i].address;
                     select.appendChild(option);
                 }
-
+                
                 let selectII = document.getElementById('from-address');
                 selectII.textContent = '';
                 for (var i = d.length - 1; i >= 0; i--) {
@@ -30,7 +30,8 @@
             })
             .catch((e) => {
                 console.error(e);
-                accountsCodeElem.innerHTML = JSON.stringify(e, null, 2);
+                alert (JSON.stringify(e, null, 2));
+                //accountsCodeElem.innerHTML = JSON.stringify(e, null, 2);
             })
             .finally(() => {
                 //hljs.highlightBlock(accountsCodeElem);

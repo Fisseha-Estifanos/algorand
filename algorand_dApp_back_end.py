@@ -1,4 +1,3 @@
-# import jsonify
 from dotenv import load_dotenv
 import sqlite3
 from werkzeug.exceptions import abort
@@ -8,7 +7,7 @@ import sys
 sys.path.append('.')
 sys.path.append('..')
 sys.path.insert(1, '/scripts/')
-from scripts.transaction_helpers import *
+from scripts.transaction_helpers import get_balance, make_transaction
 import scripts.defaults as defs
 load_dotenv()
 
@@ -20,16 +19,15 @@ app.secret_key = flask_secret_key
 
 
 # region index related
+"""
 def get_db_connection():
-    """
-    A function to create a sqlite db connection
-    """
+    # A function to create a sqlite db connection
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
     return conn
 
 
-"""def get_post(post_id):
+def get_post(post_id):
     conn = get_db_connection()
     post = conn.execute('SELECT * FROM posts WHERE id = ?',
                         (post_id,)).fetchone()
@@ -43,18 +41,16 @@ def get_db_connection():
 def post(post_id):
     post = get_post(post_id)
     return render_template('post.html', post=post)
-"""
 
 
 @app.route('/index')
 def index():
-    """
-    The main index page
-    """
+    #The main index page
     conn = get_db_connection()
     posts = conn.execute('SELECT * FROM posts').fetchall()
     conn.close()
     return render_template('index.html', posts=posts)
+"""
 # endregion
 
 
