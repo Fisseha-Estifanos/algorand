@@ -74,7 +74,7 @@ python algorand_dApp_back_end.py
 
 > #### Making transactions
 
-- First navigate to the transactions tab.
+- First navigate to the wallets tab.
 
 - Start by selecting one of the provided Algorand networks as shown below.
 
