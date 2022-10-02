@@ -60,7 +60,7 @@ pip install -r requirements.txt
 
 > ### Using the dApp
 
-- One can start using the dApp by first cloning the repo and going to the dApp directory as shown above or can direct interact with the hosted version by going [here](https://www.hosted.com)
+- One can start using the dApp by first cloning the repo and going to the dApp directory as shown above or can direct interact with the hosted version by going [here](https://deploy-preview-19--stirring-tarsier-1ebb66.netlify.app/)
 
 - If you choose the first option run the following command after navigating to the dApp directory to start the backend engine.
 
