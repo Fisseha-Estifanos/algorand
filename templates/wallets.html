@@ -42,7 +42,7 @@
         }
 
         // populate accounts
-        async function accounts() {
+        async function select_network() {
             // get the current selected network
             var select = document.getElementById('network');
             var value = select.options[select.selectedIndex].value;
@@ -307,7 +307,7 @@
         }
     </script>
     <br>
-    <h1>{% block title %} Wallet integration {% endblock %}</h1>
+    <h1>{% block title %} Wallet integration - Algorand blockchain network {% endblock %}</h1>
     <br>
     
     <div id="network-selection-form" class="p-3 mb-2 bg-secondary text-dark rounded">
@@ -322,7 +322,7 @@
                      </select>
                  </div>
                  <div class="col-md">
-                     <button type="button" class="btn btn-dark btn-sm" onclick="accounts()">Select network</button>
+                     <button type="button" class="btn btn-dark btn-sm" onclick="select_network()">Select network</button>
                  </div>
                 </div>
              <!--

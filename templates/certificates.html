@@ -2,9 +2,11 @@
 
 {% block content %}
     <script>
-        const algodServer = "https://testnet-api.algonode.cloud"
+        // global variables
         //const algodServer = "https://mainnet-api.algonode.cloud"
-        const algorand_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        let incomingLedger = 'TestNet'
+        let algodServer = "https://testnet-api.algonode.cloud"
+        let algorand_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         const port = '';
         let algodClient;
         let txParamsJS = {}
@@ -14,28 +16,52 @@
         let indexerClient = {};
 
         // populate accounts
-        function accounts() {
+        async function select_network() {
+            // get the current selected network
+            var select = document.getElementById('network');
+            var value = select.options[select.selectedIndex].value;
+            console.log(value); // en
+            if (value == 'local') {
+                console.log('local network selected');
+                // TODO: change this accordingly in dev network
+                incomingLedger = 'LocalNet';
+                algodServer = "https://testnet-api.algonode.cloud";
+            } else if (value == 'main') {
+                console.log('main network selected');
+                incomingLedger = 'MainNet';
+                algodServer = "https://mainnet-api.algonode.cloud";
+            } else if (value == 'test') {
+                console.log('test network selected');
+                incomingLedger = 'TestNet';
+                algodServer = "https://testnet-api.algonode.cloud";
+            };
+            alert ('The '+value+' network selected successfully')
+            load_accounts()
+        }
+
+        // populate accounts
+        function load_accounts() {
             setup()
             AlgoSigner.accounts({
-                ledger: 'TestNet'
+                ledger: incomingLedger
             })
             .then((d) => {
                 // Append accounts to account select
                 let select = document.getElementById('from');
                 select.textContent = '';
                 for (var i = d.length - 1; i >= 0; i--) {
-                let option = document.createElement('option');
-                option.text = d[i].address;
-                option.value = d[i].address;
-                select.appendChild(option);
+                    let option = document.createElement('option');
+                    option.text = d[i].address;
+                    option.value = d[i].address;
+                    select.appendChild(option);
                 }
             })
             .catch((e) => {
                 console.error(e);
-                accountsCodeElem.innerHTML = JSON.stringify(e, null, 2);
+                alert (JSON.stringify(e, null, 2));
             })
             .finally(() => {
-                //hljs.highlightBlock(accountsCodeElem);
+                //alert ('All accounts in the network loaded');
             });
         }
 
@@ -106,7 +132,7 @@
 
             // Sending first transaction only for demo purposes
             await AlgoSigner.send({
-                ledger: 'TestNet',
+                ledger: incomingLedger,
                 tx: signedTxs[0].blob
             })
             .then((d) => {
@@ -203,7 +229,7 @@
     </script>
 
     <br>
-    <h1>{% block title %} Create your NFT certificates on the algorand blockchain network {% endblock %}</h1>
+    <h1>{% block title %} Asset creation - Algorand blockchain network {% endblock %}</h1>
     <br>
 
     <div id="network-selection-form" class="p-3 mb-2 bg-secondary text-dark rounded">
@@ -212,13 +238,13 @@
                  <label for="network">Choose network</label>
                  <div class="col-md">
                          <select class="form-select form-select-sm bg-secondary" aria-label=".form-select-sm example" name="network" id="network">
-                         <option value="local">Local-net (dev)</option>
-                         <option value="main">Main-net</option>
-                         <option value="local">Test-net</option>
+                             <option value="test">Test-net</option>
+                             <option value="main">Main-net</option>
+                             <option value="local">Local-net (dev)</option>
                      </select>
                  </div>
                  <div class="col-md">
-                     <button type="button" class="btn btn-dark btn-sm" onclick="accounts()">Select network</button>
+                     <button type="button" class="btn btn-dark btn-sm" onclick="select_network()">Select network</button>
                  </div>
                 </div>
              <!--
@@ -234,7 +260,7 @@
 
     <div class="p-3 mb-2 bg-secondary text-dark rounded">
         <div class="mb-3 container">
-            <h3>Create your NFT certificates</h3>
+            <h3>Create assets</h3>
             <br>
                 <div class="row">
                     <div class="form-group col-md">
@@ -284,7 +310,7 @@
                 <br>
 
                 <div class="form-group col-md">
-                    <button class="btn btn-dark" onclick="create_nft_proper()">Create NFT</button>
+                    <button class="btn btn-dark" onclick="create_nft_proper()">Create asset</button>
                 </div>
             </div>
         </div>

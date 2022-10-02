@@ -2,11 +2,37 @@
 
 {% block content %}
     <script>
+        // global variables
+        let incomingLedger = 'TestNet'
+
         // populate accounts
-        function accounts() {
+        async function select_network() {
+            // get the current selected network
+            var select = document.getElementById('network');
+            var value = select.options[select.selectedIndex].value;
+            console.log(value); // en
+            if (value == 'local') {
+                console.log('local network selected');
+                // TODO: change this accordingly in dev network
+                incomingLedger = 'LocalNet';
+                algodServer = "https://testnet-api.algonode.cloud";
+            } else if (value == 'main') {
+                console.log('main network selected');
+                incomingLedger = 'MainNet';
+                algodServer = "https://mainnet-api.algonode.cloud";
+            } else if (value == 'test') {
+                console.log('test network selected');
+                incomingLedger = 'TestNet';
+                algodServer = "https://testnet-api.algonode.cloud";
+            };
+            alert ('The '+value+' network selected successfully')
+            load_accounts()
+        }
+
+        // populate accounts
+        function load_accounts() {
             AlgoSigner.accounts({
-                ledger: 'TestNet'
-                //ledger: 'MainNet'
+                ledger: incomingLedger
             })
             .then((d) => {
                 // Append accounts to account select
@@ -31,16 +57,16 @@
             .catch((e) => {
                 console.error(e);
                 alert (JSON.stringify(e, null, 2));
-                //accountsCodeElem.innerHTML = JSON.stringify(e, null, 2);
+                
             })
             .finally(() => {
-                //hljs.highlightBlock(accountsCodeElem);
+                //alert ('All accounts in the network loaded');
             });
         }
     </script>
     
     <br>
-    <h1>{% block title %} Make your transactions on the algorand blockchain network {% endblock %}</h1>
+    <h1>{% block title %} Transactions - Algorand blockchain network {% endblock %}</h1>
     <br>
 
     <div id="network-selection-form" class="p-3 mb-2 bg-secondary text-dark rounded">
@@ -49,13 +75,13 @@
                  <label for="network">Choose network</label>
                  <div class="col-md">
                          <select class="form-select form-select-sm bg-secondary" aria-label=".form-select-sm example" name="network" id="network">
+                             <option value="test">Test-net</option>
+                             <option value="main">Main-net</option>
                          <option value="local">Local-net (dev)</option>
-                         <option value="main">Main-net</option>
-                         <option value="local">Test-net</option>
                      </select>
                  </div>
                  <div class="col-md">
-                     <button type="button" class="btn btn-dark btn-sm" onclick="accounts()">Select network</button>
+                     <button type="button" class="btn btn-dark btn-sm" onclick="select_network()">Select network</button>
                  </div>
                 </div>
              <!--
