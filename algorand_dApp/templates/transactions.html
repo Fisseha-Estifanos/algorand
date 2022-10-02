@@ -5,7 +5,8 @@
         // populate accounts
         function accounts() {
             AlgoSigner.accounts({
-                ledger: 'TestNet'
+                ledger: 'TestNet',
+                //ledger: 'MainNet'
             })
             .then((d) => {
                 // Append accounts to account select

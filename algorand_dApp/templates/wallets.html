@@ -32,6 +32,7 @@
         }
 
         const algodServer = "https://testnet-api.algonode.cloud"
+        //const algodServer = "https://mainnet-api.algonode.cloud"
         const algorand_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         const port = '';
         let algodClient;
@@ -56,6 +57,7 @@
             setup()
             AlgoSigner.accounts({
             ledger: 'TestNet'
+            //ledger: 'MainNet'
             })
             .then((d) => {
             document.getElementById('addresses').innerHTML = JSON.stringify(d, null, 2);
@@ -71,6 +73,7 @@
         function accounts() {
             AlgoSigner.accounts({
                 ledger: 'TestNet'
+                //ledger: 'MainNet'
             })
             .then((d) => {
                 // Append accounts to account select
@@ -215,6 +218,7 @@
             // send transaction
             await AlgoSigner.send({
                 ledger: 'TestNet',
+                //ledger: 'MainNet',
                 tx: signedTxs[0].blob
             })
             .then((d) => {
@@ -256,6 +260,7 @@
         function sendSignedTransaction() {
             AlgoSigner.send({
                 ledger: 'TestNet',
+                //ledger: 'MainNet',
                 tx: signedTxs[0].blob
             })
             .then((d) => {
